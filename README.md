@@ -2,6 +2,11 @@
 
 A fully responsive, vanilla HTML/CSS/JavaScript implementation of a Shopify-style product page with all required e-commerce features.
 
+<img width="1440" alt="Screenshot 2025-05-10 at 11 48 38 PM" src="https://github.com/user-attachments/assets/c40de743-51f4-416a-8f6b-fe3ce4a388bd" />
+<img width="1440" alt="Screenshot 2025-05-10 at 11 48 56 PM" src="https://github.com/user-attachments/assets/47d34081-2ae4-4bc4-ab02-69576301c347" />
+
+<img width="1440" alt="Screenshot 2025-05-10 at 11 49 06 PM" src="https://github.com/user-attachments/assets/2a749eeb-5cda-4721-b559-4ce6f64f40a6" />
+
 ## 📝 Overview
 
 This project is a comprehensive implementation of a responsive e-commerce product page that mimics the functionality and design of a typical Shopify storefront. The implementation uses only vanilla HTML, CSS, and JavaScript without any external libraries or frameworks.
