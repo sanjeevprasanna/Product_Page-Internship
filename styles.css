@@ -433,7 +433,6 @@ nav ul li a:hover {
     border: none;
     text-align: center;
     font-size: 1rem;
-    -moz-appearance: textfield;
 }
 
 .quantity-selector input::-webkit-outer-spin-button,
