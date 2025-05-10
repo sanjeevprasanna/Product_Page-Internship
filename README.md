@@ -1,6 +1,11 @@
 # Shopify-Style Product Page
 
 A fully responsive, vanilla HTML/CSS/JavaScript implementation of a Shopify-style product page with all required e-commerce features.
+<img width="1440" alt="Screenshot 2025-05-10 at 11 48 38 PM" src="https://github.com/user-attachments/assets/2a3ccfc2-813b-430f-9d01-115a40322470" />
+
+<img width="1440" alt="Screenshot 2025-05-10 at 11 48 56 PM" src="https://github.com/user-attachments/assets/0334f6cf-bef6-4c1b-8a8c-a87a32f093f1" />
+
+<img width="1440" alt="Screenshot 2025-05-10 at 11 49 06 PM" src="https://github.com/user-attachments/assets/7d72a602-cfde-4a01-b30c-a9b5ed5ed42a" />
 
 ## 📝 Overview
 
