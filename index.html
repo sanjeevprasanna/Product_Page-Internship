@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Merino Wool Sweater | Fashion Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">Fashion Store</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <button class="icon-btn"><span class="icon">🔍</span></button>
+                <button class="icon-btn"><span class="icon">👤</span></button>
+                <button class="icon-btn"><span class="icon">🛒</span> <span class="cart-count">0</span></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="product-page">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="#">Home</a> &gt; <a href="#">Clothing</a> &gt; <a href="#">Sweaters</a> &gt; Premium Merino Wool Sweater
+            </div>
+
+            <div class="product-container">
+                <!-- Product Images Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img id="main-product-image" src="/api/placeholder/600/800" alt="Premium Merino Wool Sweater in Navy Blue">
+                        <!-- Zoom overlay div -->
+                        <div id="image-zoom-overlay"></div>
+                    </div>
+                    <div class="thumbnails-container">
+                        <div class="thumbnails-scroll">
+                            <div class="thumbnail active" data-image="/api/placeholder/600/800" data-color="navy">
+                                <img src="/api/placeholder/120/160" alt="Navy Blue Sweater Thumbnail 1">
+                            </div>
+                            <div class="thumbnail" data-image="/api/placeholder/600/801" data-color="navy">
+                                <img src="/api/placeholder/120/161" alt="Navy Blue Sweater Thumbnail 2">
+                            </div>
+                            <div class="thumbnail" data-image="/api/placeholder/600/802" data-color="navy">
+                                <img src="/api/placeholder/120/162" alt="Navy Blue Sweater Thumbnail 3">
+                            </div>
+                            <div class="thumbnail" data-image="/api/placeholder/600/803" data-color="navy">
+                                <img src="/api/placeholder/120/163" alt="Navy Blue Sweater Thumbnail 4">
+                            </div>
+                            <div class="thumbnail" data-image="/api/placeholder/600/804" data-color="navy">
+                                <img src="/api/placeholder/120/164" alt="Navy Blue Sweater Thumbnail 5">
+                            </div>
+                            <div class="thumbnail" data-image="/api/placeholder/600/805" data-color="navy">
+                                <img src="/api/placeholder/120/165" alt="Navy Blue Sweater Thumbnail 6">
+                            </div>
+                            <!-- Black color thumbnails -->
+                            <div class="thumbnail hidden" data-image="/api/placeholder/610/800" data-color="black">
+                                <img src="/api/placeholder/121/160" alt="Black Sweater Thumbnail 1">
+                            </div>
+                            <div class="thumbnail hidden" data-image="/api/placeholder/610/801" data-color="black">
+                                <img src="/api/placeholder/121/161" alt="Black Sweater Thumbnail 2">
+                            </div>
+                            <!-- Grey color thumbnails -->
+                            <div class="thumbnail hidden" data-image="/api/placeholder/620/800" data-color="grey">
+                                <img src="/api/placeholder/122/160" alt="Grey Sweater Thumbnail 1">
+                            </div>
+                            <div class="thumbnail hidden" data-image="/api/placeholder/620/801" data-color="grey">
+                                <img src="/api/placeholder/122/161" alt="Grey Sweater Thumbnail 2">
+                            </div>
+                            <!-- Green color thumbnails -->
+                            <div class="thumbnail hidden" data-image="/api/placeholder/630/800" data-color="green">
+                                <img src="/api/placeholder/123/160" alt="Green Sweater Thumbnail 1">
+                            </div>
+                            <div class="thumbnail hidden" data-image="/api/placeholder/630/801" data-color="green">
+                                <img src="/api/placeholder/123/161" alt="Green Sweater Thumbnail 2">
+                            </div>
+                        </div>
+                        <button class="thumbnail-scroll-btn prev">&uarr;</button>
+                        <button class="thumbnail-scroll-btn next">&darr;</button>
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="product-details">
+                    <h1 class="product-title">Premium Merino Wool Sweater</h1>
+                    <div class="product-pricing">
+                        <span class="product-price">$129.99</span>
+                        <span class="product-rating">★★★★★ (124 reviews)</span>
+                    </div>
+
+                    <!-- Product Variants -->
+                    <div class="product-variants">
+                        <div class="variant-type">
+                            <span class="variant-label">Color: <span id="selected-color">Navy Blue</span></span>
+                            <div class="color-options">
+                                <button class="color-swatch active" data-color="navy" style="background-color: #1D3461;"></button>
+                                <button class="color-swatch" data-color="black" style="background-color: #23282c;"></button>
+                                <button class="color-swatch" data-color="grey" style="background-color: #9ca3af;"></button>
+                                <button class="color-swatch" data-color="green" style="background-color: #166534;"></button>
+                            </div>
+                            <button id="compare-colors" class="compare-btn">Compare Colors</button>
+                        </div>
+
+                        <div class="variant-type">
+                            <span class="variant-label">Size: <span id="selected-size">Medium</span></span>
+                            <div class="size-chart-container">
+                                <button id="size-chart-btn" class="size-chart-btn">Size Chart</button>
+                            </div>
+                            <div class="size-options">
+                                <button class="size-btn" data-size="XS">XS</button>
+                                <button class="size-btn" data-size="S">S</button>
+                                <button class="size-btn active" data-size="M">M</button>
+                                <button class="size-btn" data-size="L">L</button>
+                                <button class="size-btn" data-size="XL">XL</button>
+                                <button class="size-btn" data-size="XXL">XXL</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="qty-btn decrease">-</button>
+                            <input type="number" value="1" min="1" max="99" id="quantity">
+                            <button class="qty-btn increase">+</button>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                        <button class="wishlist-btn">♡</button>
+                    </div>
+
+                    <div class="product-meta">
+                        <p><strong>SKU:</strong> SW-MERINO-123</p>
+                        <p><strong>Availability:</strong> <span class="in-stock">In Stock</span></p>
+                        <p><strong>Free shipping</strong> on orders over $50</p>
+                    </div>
+
+                    <!-- Product Information Tabs -->
+                    <div class="product-tabs">
+                        <div class="tabs-header">
+                            <button class="tab-btn active" data-tab="description">Description</button>
+                            <button class="tab-btn" data-tab="product-info">Product Information</button>
+                            <button class="tab-btn" data-tab="shipping">Shipping Details</button>
+                        </div>
+                        <div class="tabs-content">
+                            <div class="tab-panel active" id="description">
+                                <p>Crafted from 100% premium Merino wool, this luxurious sweater offers exceptional warmth and comfort without the usual itchiness associated with wool garments. Perfect for everyday wear, it features a classic crew neck design that's both versatile and flattering.</p>
+                                <p>The breathable fabric regulates body temperature naturally, making it ideal for layering in cooler weather while still being lightweight enough for year-round use.</p>
+                                <ul>
+                                    <li>100% premium Merino wool</li>
+                                    <li>Ribbed collar, cuffs, and hem</li>
+                                    <li>Machine washable (gentle cycle)</li>
+                                    <li>Classic fit</li>
+                                </ul>
+                            </div>
+                            <div class="tab-panel" id="product-info">
+                                <h4>Materials & Care</h4>
+                                <p><strong>Fabric:</strong> 100% Merino Wool (21.5 micron)</p>
+                                <p><strong>Weight:</strong> Medium (350g)</p>
+                                <p><strong>Care Instructions:</strong> Machine wash cold on gentle cycle with similar colors. Reshape and lay flat to dry. Do not bleach. May be dry cleaned.</p>
+                                
+                                <h4>Product Features</h4>
+                                <ul>
+                                    <li>Naturally odor-resistant</li>
+                                    <li>Thermal regulating properties</li>
+                                    <li>Moisture-wicking</li>
+                                    <li>UV protection (UPF 25+)</li>
+                                    <li>Pill-resistant knit</li>
+                                </ul>
+                            </div>
+                            <div class="tab-panel" id="shipping">
+                                <h4>Shipping Information</h4>
+                                <p><strong>Standard Shipping:</strong> 3-5 business days (Free on orders over $50)</p>
+                                <p><strong>Express Shipping:</strong> 1-2 business days ($12.95)</p>
+                                <p><strong>Overnight Shipping:</strong> Next business day if ordered before 1PM EST ($24.95)</p>
+                                
+                                <h4>Returns & Exchanges</h4>
+                                <p>We offer a 30-day return policy for unworn items in original packaging. Return shipping is free for exchanges or store credit. $5.95 return fee applies for refunds to original payment method.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bundle Suggestion -->
+            <div class="product-bundle">
+                <h3>Complete the Look - Bundle & Save 15%</h3>
+                <div class="bundle-products">
+                    <div class="bundle-product current">
+                        <div class="bundle-product-image">
+                            <img src="/api/placeholder/150/200" alt="Premium Merino Wool Sweater">
+                        </div>
+                        <div class="bundle-product-info">
+                            <h4>Premium Merino Wool Sweater</h4>
+                            <p class="bundle-product-price">$129.99</p>
+                        </div>
+                    </div>
+                    <div class="bundle-plus">+</div>
+                    <div class="bundle-product">
+                        <div class="bundle-product-image">
+                            <img src="/api/placeholder/150/201" alt="Wool Blend Scarf">
+                        </div>
+                        <div class="bundle-product-info">
+                            <h4>Wool Blend Scarf</h4>
+                            <p class="bundle-product-price">$39.99</p>
+                        </div>
+                    </div>
+                    <div class="bundle-plus">+</div>
+                    <div class="bundle-product">
+                        <div class="bundle-product-image">
+                            <img src="/api/placeholder/150/202" alt="Merino Wool Beanie">
+                        </div>
+                        <div class="bundle-product-info">
+                            <h4>Merino Wool Beanie</h4>
+                            <p class="bundle-product-price">$29.99</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bundle-summary">
+                    <div class="bundle-pricing">
+                        <p>Individual Price: <span class="individual-price">$199.97</span></p>
+                        <p>Bundle Price: <span class="bundle-price">$169.97</span></p>
+                        <p class="bundle-savings">You Save: $30.00</p>
+                    </div>
+                    <button class="bundle-add-btn">Add Bundle to Cart</button>
+                </div>
+            </div>
+
+            <!-- Pair Well With Section -->
+            <div class="pair-well-with">
+                <h3>Pairs Well With</h3>
+                <div class="complementary-products">
+                    <div class="comp-products-scroll">
+                        <div class="comp-product">
+                            <div class="comp-product-image">
+                                <img src="/api/placeholder/250/333" alt="Slim Fit Chinos">
+                            </div>
+                            <h4>Slim Fit Chinos</h4>
+                            <p class="comp-product-price">$89.99</p>
+                            <button class="comp-product-add">Add to Cart</button>
+                        </div>
+                        <div class="comp-product">
+                            <div class="comp-product-image">
+                                <img src="/api/placeholder/250/334" alt="Leather Belt">
+                            </div>
+                            <h4>Italian Leather Belt</h4>
+                            <p class="comp-product-price">$59.99</p>
+                            <button class="comp-product-add">Add to Cart</button>
+                        </div>
+                        <div class="comp-product">
+                            <div class="comp-product-image">
+                                <img src="/api/placeholder/250/335" alt="Canvas Sneakers">
+                            </div>
+                            <h4>Canvas Sneakers</h4>
+                            <p class="comp-product-price">$79.99</p>
+                            <button class="comp-product-add">Add to Cart</button>
+                        </div>
+                        <div class="comp-product">
+                            <div class="comp-product-image">
+                                <img src="/api/placeholder/250/336" alt="Leather Watch">
+                            </div>
+                            <h4>Classic Leather Watch</h4>
+                            <p class="comp-product-price">$149.99</p>
+                            <button class="comp-product-add">Add to Cart</button>
+                        </div>
+                        <div class="comp-product">
+                            <div class="comp-product-image">
+                                <img src="/api/placeholder/250/337" alt="Sunglasses">
+                            </div>
+                            <h4>Polarized Sunglasses</h4>
+                            <p class="comp-product-price">$129.99</p>
+                            <button class="comp-product-add">Add to Cart</button>
+                        </div>
+                    </div>
+                    <button class="comp-scroll-btn prev">&#8249;</button>
+                    <button class="comp-scroll-btn next">&#8250;</button>
+                </div>
+            </div>
+
+            <!-- Related Products Section -->
+            <div class="related-products">
+                <h3>You May Also Like</h3>
+                <div class="related-product-grid">
+                    <div class="related-product">
+                        <div class="related-product-image">
+                            <img src="/api/placeholder/300/400" alt="Cashmere Blend Cardigan">
+                            <span class="product-badge new">New</span>
+                        </div>
+                        <h4>Cashmere Blend Cardigan</h4>
+                        <p class="related-product-price">$159.99</p>
+                    </div>
+                    <div class="related-product">
+                        <div class="related-product-image">
+                            <img src="/api/placeholder/300/401" alt="Cable Knit Sweater">
+                            <span class="product-badge bestseller">Bestseller</span>
+                        </div>
+                        <h4>Cable Knit Sweater</h4>
+                        <p class="related-product-price">$119.99</p>
+                    </div>
+                    <div class="related-product">
+                        <div class="related-product-image">
+                            <img src="/api/placeholder/300/402" alt="Lightweight V-Neck Pullover">
+                        </div>
+                        <h4>Lightweight V-Neck Pullover</h4>
+                        <p class="related-product-price">$99.99</p>
+                    </div>
+                    <div class="related-product">
+                        <div class="related-product-image">
+                            <img src="/api/placeholder/300/403" alt="Turtleneck Sweater">
+                            <span class="product-badge sale">Sale</span>
+                        </div>
+                        <h4>Turtleneck Sweater</h4>
+                        <p class="related-product-price"><span class="original-price">$139.99</span> $109.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Bestsellers</a></li>
+                        <li><a href="#">Sale</a></li>
+                        <li><a href="#">Collections</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column newsletter">
+                    <h4>Stay Connected</h4>
+                    <p>Subscribe to our newsletter for exclusive offers and updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Fashion Store. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Size Chart Modal -->
+    <div id="size-chart-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3>Size Chart</h3>
+            <div class="size-chart">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Size</th>
+                            <th>Chest (in)</th>
+                            <th>Waist (in)</th>
+                            <th>Hip (in)</th>
+                            <th>EU Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>XS</td>
+                            <td>34-36</td>
+                            <td>28-30</td>
+                            <td>34-36</td>
+                            <td>44-46</td>
+                        </tr>
+                        <tr>
+                            <td>S</td>
+                            <td>36-38</td>
+                            <td>30-32</td>
+                            <td>36-38</td>
+                            <td>46-48</td>
+                        </tr>
+                        <tr>
+                            <td>M</td>
+                            <td>38-40</td>
+                            <td>32-34</td>
+                            <td>38-40</td>
+                            <td>48-50</td>
+                        </tr>
+                        <tr>
+                            <td>L</td>
+                            <td>40-42</td>
+                            <td>34-36</td>
+                            <td>40-42</td>
+                            <td>50-52</td>
+                        </tr>
+                        <tr>
+                            <td>XL</td>
+                            <td>42-44</td>
+                            <td>36-38</td>
+                            <td>42-44</td>
+                            <td>52-54</td>
+                        </tr>
+                        <tr>
+                            <td>XXL</td>
+                            <td>44-46</td>
+                            <td>38-40</td>
+                            <td>44-46</td>
+                            <td>54-56</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Measurements are body measurements, not garment measurements. For the best fit, measure your body and refer to the size chart above.</p>
+                <h4>How to Measure</h4>
+                <ul>
+                    <li><strong>Chest:</strong> Measure around the fullest part of your chest, keeping the tape horizontal.</li>
+                    <li><strong>Waist:</strong> Measure around your natural waistline, keeping the tape comfortably loose.</li>
+                    <li><strong>Hip:</strong> Measure around the fullest part of your hips.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Colors Modal -->
+    <div id="compare-colors-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3>Compare Colors</h3>
+            <p>Select colors to compare (up to 3):</p>
+            <div class="compare-colors-container">
+                <div class="compare-color-option">
+                    <label>
+                        <input type="checkbox" name="compare-color" value="navy" checked>
+                        <span class="color-block" style="background-color: #1D3461;"></span>
+                        <span class="color-name">Navy Blue</span>
+                    </label>
+                </div>
+                <div class="compare-color-option">
+                    <label>
+                        <input type="checkbox" name="compare-color" value="black">
+                        <span class="color-block" style="background-color: #23282c;"></span>
+                        <span class="color-name">Black</span>
+                    </label>
+                </div>
+                <div class="compare-color-option">
+                    <label>
+                        <input type="checkbox" name="compare-color" value="grey">
+                        <span class="color-block" style="background-color: #9ca3af;"></span>
+                        <span class="color-name">Grey</span>
+                    </label>
+                </div>
+                <div class="compare-color-option">
+                    <label>
+                        <input type="checkbox" name="compare-color" value="green">
+                        <span class="color-block" style="background-color: #166534;"></span>
+                        <span class="color-name">Green</span>
+                    </label>
+                </div>
+            </div>
+            <div class="color-comparison">
+                <div class="comparison-title">Selected Colors:</div>
+                <div class="compared-colors">
+                    <div class="compared-color active" data-color="navy">
+                        <div class="compared-color-sample" style="background-color: #1D3461;"></div>
+                        <div class="compared-color-info">
+                            <h4>Navy Blue</h4>
+                            <p>A deep, rich navy that pairs well with most colors.</p>
+                        </div>
+                    </div>
+                    <div class="compared-color" data-color="black">
+                        <div class="compared-color-sample" style="background-color: #23282c;"></div>
+                        <div class="compared-color-info">
+                            <h4>Black</h4>
+                            <p>Classic black for a timeless, versatile look.</p>
+                        </div>
+                    </div>
+                    <div class="compared-color" data-color="grey">
+                        <div class="compared-color-sample" style="background-color: #9ca3af;"></div>
+                        <div class="compared-color-info">
+                            <h4>Grey</h4>
+                            <p>A soft, heathered grey for subtle sophistication.</p>
+                        </div>
+                    </div>
+                    <div class="compared-color" data-color="green">
+                        <div class="compared-color-sample" style="background-color: #166534;"></div>
+                        <div class="compared-color-info">
+                            <h4>Green</h4>
+                            <p>A forest green that adds a pop of color to your wardrobe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
