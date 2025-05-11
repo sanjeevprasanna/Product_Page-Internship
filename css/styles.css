@@ -1,4 +1,14 @@
 /* Base Styles */
+.placeholder {
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+    background-color: #e0e0e0; /* Light gray color for the placeholder */
+    background-image: linear-gradient(45deg, #e0e0e0 25%, #f0f0f0 25%, #f0f0f0 50%, #e0e0e0 50%, #e0e0e0 75%, #f0f0f0 75%, #f0f0f0);
+    background-size: 40px 40px; /* Size of the gradient pattern */
+    border-radius: var(--radius); /* Use the same border radius as your images */
+    position: relative; /* For positioning if needed */
+    overflow: hidden; /* To ensure no overflow */
+}
 :root {
     --primary-color: #3b82f6;
     --secondary-color: #1d4ed8;

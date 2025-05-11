@@ -1,405 +1,238 @@
-// main.js - Product Page JavaScript functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Cart count element and variable
+    const cartCountEl = document.querySelector('.cart-count');
+    let cartCount = parseInt(cartCountEl.textContent) || 0;
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    initProductImages();
-    initProductVariants();
-    initSizeChart();
-    initCompareColors();
-    initTabs();
-    initCarousels();
-    initBundle();
-    initZoomEffect();
-    loadSavedVariants();
-});
+    // Function to update cart count display
+    function updateCartCount(amount) {
+        cartCount += amount;
+        cartCountEl.textContent = cartCount;
+    }
 
-// 1. Product Images Gallery
-function initProductImages() {
+    // Add to Cart - main product
+    const quantityInput = document.getElementById('quantity');
+    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+    addToCartBtn.addEventListener('click', () => {
+        let qty = parseInt(quantityInput.value, 10);
+        if (isNaN(qty) || qty < 1) qty = 1;
+        if (qty > 99) qty = 99;
+        updateCartCount(qty);
+    });
+
+    // Quantity controls (+/- buttons)
+    const decreaseBtn = document.querySelector('.qty-btn.decrease');
+    const increaseBtn = document.querySelector('.qty-btn.increase');
+    decreaseBtn.addEventListener('click', () => {
+        let current = parseInt(quantityInput.value, 10) || 1;
+        if (current > 1) {
+            quantityInput.value = current - 1;
+        }
+    });
+    increaseBtn.addEventListener('click', () => {
+        let current = parseInt(quantityInput.value, 10) || 1;
+        if (current < 99) {
+            quantityInput.value = current + 1;
+        }
+    });
+    // Clamp manual input to range
+    quantityInput.addEventListener('input', () => {
+        let val = parseInt(quantityInput.value, 10);
+        if (isNaN(val) || val < 1) {
+            quantityInput.value = 1;
+        } else if (val > 99) {
+            quantityInput.value = 99;
+        }
+    });
+
+    // Thumbnail image switching
     const mainImage = document.getElementById('main-product-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
-    
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', function() {
-            // Update main image
-            const newSrc = this.getAttribute('data-full-img');
-            mainImage.src = newSrc;
-            
-            // Update active thumbnail
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', () => {
+            // Only switch if thumbnail is visible
+            if (thumbnail.classList.contains('hidden')) return;
+            // Remove active from all thumbnails
             thumbnails.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
+            // Set clicked thumbnail as active
+            thumbnail.classList.add('active');
+            // Update main image source
+            const newSrc = thumbnail.getAttribute('data-image');
+            if (newSrc) {
+                mainImage.src = newSrc;
+            }
         });
     });
-    
-    // Initialize thumbnail scroller if needed
-    initThumbnailScroller();
-}
 
-function initThumbnailScroller() {
-    const thumbnailContainer = document.querySelector('.thumbnails-container');
-    if (!thumbnailContainer) return;
-    
-    const scrollUp = document.querySelector('.scroll-up');
-    const scrollDown = document.querySelector('.scroll-down');
-    
-    if (scrollUp && scrollDown) {
-        scrollUp.addEventListener('click', function() {
-            thumbnailContainer.scrollBy({
-                top: -100,
-                behavior: 'smooth'
-            });
-        });
-        
-        scrollDown.addEventListener('click', function() {
-            thumbnailContainer.scrollBy({
-                top: 100,
-                behavior: 'smooth'
-            });
-        });
-    }
-}
-
-// 2. Size Chart Modal
-function initSizeChart() {
-    const sizeChartBtn = document.getElementById('size-chart-btn');
-    const sizeChartModal = document.getElementById('size-chart-modal');
-    const modalClose = document.querySelector('#size-chart-modal .close-modal');
-    const modalOverlay = document.querySelector('#size-chart-modal .modal-overlay');
-    
-    if (!sizeChartBtn || !sizeChartModal) return;
-    
-    sizeChartBtn.addEventListener('click', function() {
-        sizeChartModal.classList.add('open');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    });
-    
-    // Close modal by clicking X button
-    if (modalClose) {
-        modalClose.addEventListener('click', closeModal);
-    }
-    
-    // Close modal by clicking overlay
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', closeModal);
-    }
-    
-    // Close modal with ESC key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && sizeChartModal.classList.contains('open')) {
-            closeModal();
-        }
-    });
-    
-    function closeModal() {
-        sizeChartModal.classList.remove('open');
-        document.body.style.overflow = ''; // Restore scrolling
-    }
-}
-
-// 3. Product Variants
-function initProductVariants() {
-    const colorOptions = document.querySelectorAll('.color-option');
-    const sizeOptions = document.querySelectorAll('.size-option');
-    const variantImage = document.getElementById('main-product-image');
-    const colorLabel = document.getElementById('selected-color');
-    const sizeLabel = document.getElementById('selected-size');
-    
-    // Color selection
-    colorOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            // Update active state
-            colorOptions.forEach(opt => opt.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update color label
-            if (colorLabel) {
-                colorLabel.textContent = this.getAttribute('data-color');
-            }
-            
-            // Update product image if there's a variant image
-            const variantImgSrc = this.getAttribute('data-img');
-            if (variantImgSrc && variantImage) {
-                variantImage.src = variantImgSrc;
-            }
-            
-            // Save selection to localStorage
-            saveVariantSelection('color', this.getAttribute('data-color'));
-        });
-    });
-    
-    // Size selection
-    sizeOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            // Update active state
-            sizeOptions.forEach(opt => opt.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update size label
-            if (sizeLabel) {
-                sizeLabel.textContent = this.getAttribute('data-size');
-            }
-            
-            // Save selection to localStorage
-            saveVariantSelection('size', this.getAttribute('data-size'));
-        });
-    });
-}
-
-// Save variant selections to localStorage
-function saveVariantSelection(type, value) {
-    const productId = document.querySelector('.product-container').getAttribute('data-product-id');
-    let savedSelections = JSON.parse(localStorage.getItem('variantSelections')) || {};
-    
-    if (!savedSelections[productId]) {
-        savedSelections[productId] = {};
-    }
-    
-    savedSelections[productId][type] = value;
-    localStorage.setItem('variantSelections', JSON.stringify(savedSelections));
-}
-
-// Load saved variant selections from localStorage
-function loadSavedVariants() {
-    const productId = document.querySelector('.product-container').getAttribute('data-product-id');
-    const savedSelections = JSON.parse(localStorage.getItem('variantSelections')) || {};
-    
-    if (savedSelections[productId]) {
-        // Restore color selection
-        if (savedSelections[productId].color) {
-            const colorToSelect = document.querySelector(`.color-option[data-color="${savedSelections[productId].color}"]`);
-            if (colorToSelect) {
-                colorToSelect.click();
-            }
-        }
-        
-        // Restore size selection
-        if (savedSelections[productId].size) {
-            const sizeToSelect = document.querySelector(`.size-option[data-size="${savedSelections[productId].size}"]`);
-            if (sizeToSelect) {
-                sizeToSelect.click();
-            }
-        }
-    }
-}
-
-// 4. Compare Colors
-function initCompareColors() {
-    const compareBtn = document.getElementById('compare-colors-btn');
-    const compareModal = document.getElementById('compare-colors-modal');
-    const modalClose = document.querySelector('#compare-colors-modal .close-modal');
-    const colorSwatches = document.querySelectorAll('.compare-color-swatch');
-    
-    if (!compareBtn || !compareModal) return;
-    
-    compareBtn.addEventListener('click', function() {
-        compareModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-    });
-    
-    if (modalClose) {
-        modalClose.addEventListener('click', closeCompareModal);
-    }
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && compareModal.classList.contains('open')) {
-            closeCompareModal();
-        }
-    });
-    
-    document.querySelector('#compare-colors-modal .modal-overlay').addEventListener('click', closeCompareModal);
-    
-    // Allow selecting colors to compare
+    // Color variant switching
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    const selectedColorLabel = document.getElementById('selected-color');
+    const colorNames = {
+        navy: 'Navy Blue',
+        black: 'Black',
+        grey: 'Grey',
+        green: 'Green'
+    };
     colorSwatches.forEach(swatch => {
-        swatch.addEventListener('click', function() {
-            this.classList.toggle('selected');
-            updateCompareCounter();
-        });
-    });
-    
-    function closeCompareModal() {
-        compareModal.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-    
-    function updateCompareCounter() {
-        const selectedCount = document.querySelectorAll('.compare-color-swatch.selected').length;
-        const counter = document.getElementById('selected-colors-count');
-        if (counter) {
-            counter.textContent = selectedCount;
-        }
-    }
-}
-
-// 5 & 8. Carousels (For "Pair Well With" and "Related Products")
-function initCarousels() {
-    // Pair Well With carousel
-    initCarousel('pair-well-carousel');
-    
-    // If related products are in a carousel format
-    initCarousel('related-products-carousel');
-}
-
-function initCarousel(carouselId) {
-    const carousel = document.getElementById(carouselId);
-    if (!carousel) return;
-    
-    const prevBtn = carousel.querySelector('.carousel-prev');
-    const nextBtn = carousel.querySelector('.carousel-next');
-    const itemsContainer = carousel.querySelector('.carousel-items');
-    
-    if (prevBtn && nextBtn && itemsContainer) {
-        const scrollAmount = itemsContainer.querySelector('.carousel-item').offsetWidth;
-        
-        prevBtn.addEventListener('click', function() {
-            itemsContainer.scrollBy({
-                left: -scrollAmount,
-                behavior: 'smooth'
-            });
-        });
-        
-        nextBtn.addEventListener('click', function() {
-            itemsContainer.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
-        });
-    }
-}
-
-// 6. Product Bundle
-function initBundle() {
-    const bundleCheckboxes = document.querySelectorAll('.bundle-item-checkbox');
-    const addBundleBtn = document.getElementById('add-bundle-btn');
-    const bundleTotalEl = document.getElementById('bundle-total');
-    
-    if (!bundleCheckboxes.length || !bundleTotalEl) return;
-    
-    // Calculate initial bundle total
-    calculateBundleTotal();
-    
-    // Update total when checkboxes change
-    bundleCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', calculateBundleTotal);
-    });
-    
-    // Add bundle to cart
-    if (addBundleBtn) {
-        addBundleBtn.addEventListener('click', function() {
-            const selectedItems = [];
-            bundleCheckboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    selectedItems.push(checkbox.getAttribute('data-product-id'));
+        swatch.addEventListener('click', () => {
+            const color = swatch.getAttribute('data-color');
+            if (!color) return;
+            // Update active swatch
+            colorSwatches.forEach(s => s.classList.remove('active'));
+            swatch.classList.add('active');
+            // Update displayed color name
+            if (colorNames[color]) {
+                selectedColorLabel.textContent = colorNames[color];
+            }
+            // Show/hide thumbnails for selected color
+            thumbnails.forEach(th => {
+                if (th.getAttribute('data-color') === color) {
+                    th.classList.remove('hidden');
+                } else {
+                    th.classList.add('hidden');
+                }
+                // Remove any 'active' on hidden thumbnails
+                if (th.classList.contains('hidden')) {
+                    th.classList.remove('active');
                 }
             });
-            
-            if (selectedItems.length > 0) {
-                console.log('Adding bundle to cart:', selectedItems);
-                // In a real implementation, this would call a cart API
-                
-                // Show confirmation
-                const notification = document.createElement('div');
-                notification.classList.add('notification');
-                notification.textContent = 'Bundle added to cart!';
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.remove();
-                }, 3000);
+            // Activate the first thumbnail of this color
+            const firstVisible = document.querySelector(`.thumbnail:not(.hidden)[data-color="${color}"]`);
+            if (firstVisible) {
+                firstVisible.classList.add('active');
+                const firstImageSrc = firstVisible.getAttribute('data-image');
+                if (firstImageSrc) {
+                    mainImage.src = firstImageSrc;
+                }
             }
         });
-    }
-    
-    function calculateBundleTotal() {
-        let total = 0;
-        bundleCheckboxes.forEach(checkbox => {
-            if (checkbox.checked) {
-                const price = parseFloat(checkbox.getAttribute('data-price') || 0);
-                total += price;
-            }
-        });
-        
-        bundleTotalEl.textContent = '$' + total.toFixed(2);
-    }
-}
+    });
 
-// 7. Tabs for Product Info
-function initTabs() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    if (!tabButtons.length || !tabContents.length) return;
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            
+    // Size selection
+    const sizeButtons = document.querySelectorAll('.size-btn');
+    const selectedSizeLabel = document.getElementById('selected-size');
+    const sizeNames = {
+        XS: 'Extra Small',
+        S: 'Small',
+        M: 'Medium',
+        L: 'Large',
+        XL: 'X-Large',
+        XXL: 'XX-Large'
+    };
+    sizeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active size button
+            sizeButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            // Update displayed selected size
+            const sizeKey = button.getAttribute('data-size');
+            if (sizeNames[sizeKey]) {
+                selectedSizeLabel.textContent = sizeNames[sizeKey];
+            }
+        });
+    });
+
+    // Tabs (Description, Product Info, Shipping)
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    tabButtons.forEach(tabBtn => {
+        tabBtn.addEventListener('click', () => {
             // Update active tab button
             tabButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show active tab content
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.getAttribute('id') === tabId) {
-                    content.classList.add('active');
+            tabBtn.classList.add('active');
+            // Show corresponding tab panel
+            const target = tabBtn.getAttribute('data-tab');
+            tabPanels.forEach(panel => {
+                if (panel.id === target) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
                 }
             });
         });
     });
-}
 
-// Bonus feature: Image zoom on hover
-function initZoomEffect() {
-    const mainImage = document.getElementById('main-product-image');
-    const zoomContainer = document.querySelector('.product-image-container');
-    
-    if (!mainImage || !zoomContainer) return;
-    
-    zoomContainer.addEventListener('mouseenter', function() {
-        mainImage.classList.add('zoom-effect');
+    // Modal handling (Size Chart & Compare Colors)
+    const sizeChartBtn = document.getElementById('size-chart-btn');
+    const compareColorsBtn = document.getElementById('compare-colors');
+    const sizeModal = document.getElementById('size-chart-modal');
+    const compareModal = document.getElementById('compare-colors-modal');
+    const modalCloseBtns = document.querySelectorAll('.modal-close');
+    const modalOverlay = document.querySelector('.modal-overlay');
+    // Open size chart modal
+    sizeChartBtn.addEventListener('click', () => {
+        sizeModal.classList.add('active');
+        modalOverlay.classList.add('active');
     });
-    
-    zoomContainer.addEventListener('mouseleave', function() {
-        mainImage.classList.remove('zoom-effect');
+    // Open compare colors modal
+    compareColorsBtn.addEventListener('click', () => {
+        compareModal.classList.add('active');
+        modalOverlay.classList.add('active');
     });
-    
-    zoomContainer.addEventListener('mousemove', function(e) {
-        if (!mainImage.classList.contains('zoom-effect')) return;
-        
-        const rect = zoomContainer.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width * 100;
-        const y = (e.clientY - rect.top) / rect.height * 100;
-        
-        mainImage.style.transformOrigin = `${x}% ${y}%`;
+    // Close modals on close button
+    modalCloseBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.modal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+            modalOverlay.classList.remove('active');
+        });
     });
-}
+    // Close modals when clicking overlay
+    modalOverlay.addEventListener('click', () => {
+        [sizeModal, compareModal].forEach(modal => {
+            modal.classList.remove('active');
+        });
+        modalOverlay.classList.remove('active');
+    });
 
-// Add to Cart functionality
-document.querySelector('.add-to-cart-btn')?.addEventListener('click', function() {
-    const productId = document.querySelector('.product-container').getAttribute('data-product-id');
-    const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color');
-    const selectedSize = document.querySelector('.size-option.active')?.getAttribute('data-size');
-    const quantity = document.querySelector('#quantity-input')?.value || 1;
-    
-    if (!selectedColor || !selectedSize) {
-        alert('Please select color and size options');
-        return;
-    }
-    
-    // In a real implementation, this would call a cart API
-    console.log('Adding to cart:', {
-        productId,
-        color: selectedColor,
-        size: selectedSize,
-        quantity
+    // Wishlist toggle (heart icon)
+    const wishlistBtn = document.querySelector('.wishlist-btn');
+    wishlistBtn.addEventListener('click', () => {
+        wishlistBtn.classList.toggle('active');
+        if (wishlistBtn.classList.contains('active')) {
+            wishlistBtn.textContent = '♥';
+        } else {
+            wishlistBtn.textContent = '♡';
+        }
     });
-    
-    // Show confirmation
-    const notification = document.createElement('div');
-    notification.classList.add('notification');
-    notification.textContent = 'Product added to cart!';
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
+
+    // Thumbnail scrolling (vertical)
+    const thumbScrollContainer = document.querySelector('.thumbnails-scroll');
+    const thumbPrevBtn = document.querySelector('.thumbnail-scroll-btn.prev');
+    const thumbNextBtn = document.querySelector('.thumbnail-scroll-btn.next');
+    thumbPrevBtn.addEventListener('click', () => {
+        thumbScrollContainer.scrollBy({ top: -100, behavior: 'smooth' });
+    });
+    thumbNextBtn.addEventListener('click', () => {
+        thumbScrollContainer.scrollBy({ top: 100, behavior: 'smooth' });
+    });
+
+    // Complementary products scrolling (horizontal)
+    const compScrollContainer = document.querySelector('.comp-products-scroll');
+    const compPrevBtn = document.querySelector('.comp-scroll-btn.prev');
+    const compNextBtn = document.querySelector('.comp-scroll-btn.next');
+    compPrevBtn.addEventListener('click', () => {
+        const scrollAmount = compScrollContainer.clientWidth;
+        compScrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    compNextBtn.addEventListener('click', () => {
+        const scrollAmount = compScrollContainer.clientWidth;
+        compScrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    // "Pairs Well With" products add to cart (each adds 1)
+    const compAddBtns = document.querySelectorAll('.comp-product-add');
+    compAddBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            updateCartCount(1);
+        });
+    });
+
+    // Add bundle to cart (adds number of bundle items)
+    const bundleAddBtn = document.querySelector('.bundle-add-btn');
+    bundleAddBtn.addEventListener('click', () => {
+        const bundleItems = document.querySelectorAll('.bundle-product').length;
+        updateCartCount(bundleItems);
+    });
 });
